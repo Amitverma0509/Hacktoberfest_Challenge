@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content="StudySaathi is a local AI study buddy powered by Gemma and Ollama.">
+  <title>StudySaathi — Your personal study buddy</title>
+  <link rel="icon" type="image/png" href="../static/favicon.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="StudySaathi home">
+        <span class="brand-mark">S</span>
+        <span>StudySaathi</span>
+      </a>
+      <div class="local-pill"><span class="status-dot"></span> Local AI · {{ model }}</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow"><span>✦</span> YOUR PERSONAL STUDY SPACE</div>
+        <h1>Make tough topics<br><span>feel a little simpler.</span></h1>
+        <p class="hero-copy">Bring your notes. Choose how you want to study.<br class="desktop-break"> Learn at your own pace, without the pressure.</p>
+      </section>
+
+      <section class="workspace" aria-label="Study workspace">
+        <div class="input-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step-label">STEP 01</span>
+              <h2>Your study notes</h2>
+            </div>
+            <span class="tiny-icon">✎</span>
+          </div>
+          <label for="notes" class="field-label">Paste a topic, class notes, or a textbook excerpt</label>
+          <textarea id="notes" maxlength="12000" placeholder="For example: Photosynthesis is the process by which green plants use sunlight, water, and carbon dioxide to produce glucose and oxygen..."></textarea>
+          <div class="input-footer">
+            <span id="char-count">0 / 12,000 characters</span>
+            <button id="clear-btn" class="text-button" type="button">Clear notes</button>
+          </div>
+
+          <div class="divider"></div>
+          <div class="panel-heading task-heading">
+            <div>
+              <span class="step-label">STEP 02</span>
+              <h2>How do you want to study?</h2>
+            </div>
+          </div>
+          <div class="mode-grid" role="group" aria-label="Choose a study mode">
+            <button class="mode-card selected" data-mode="explain" type="button" aria-pressed="true">
+              <span class="mode-icon explain-icon">☼</span>
+              <span class="mode-title">Explain it</span>
+              <span class="mode-desc">Make it easier to understand</span>
+            </button>
+            <button class="mode-card" data-mode="quiz" type="button" aria-pressed="false">
+              <span class="mode-icon quiz-icon">?</span>
+              <span class="mode-title">Quiz me</span>
+              <span class="mode-desc">Check what you remember</span>
+            </button>
+            <button class="mode-card" data-mode="flashcards" type="button" aria-pressed="false">
+              <span class="mode-icon cards-icon">▤</span>
+              <span class="mode-title">Flashcards</span>
+              <span class="mode-desc">Revise key ideas quickly</span>
+            </button>
+          </div>
+
+          <button id="generate-btn" class="generate-btn" type="button">
+            <span>✦</span> <span id="generate-label">Explain my notes</span> <span class="button-arrow">→</span>
+          </button>
+          <p class="privacy-note"><span>♧</span> Your notes are sent to the AI running on this computer, not to a hosted AI API.</p>
+        </div>
+
+        <aside class="result-panel">
+          <div class="result-top">
+            <div>
+              <span class="step-label">YOUR STUDY RESULT</span>
+              <h2 id="result-title">Your learning space</h2>
+            </div>
+            <span class="result-sparkle">✦</span>
+          </div>
+          <div id="empty-state" class="empty-state">
+            <div class="empty-illustration">
+              <div class="sun"></div>
+              <div class="book book-back"></div>
+              <div class="book book-front"></div>
+              <div class="spark spark-one">✦</div>
+              <div class="spark spark-two">✧</div>
+            </div>
+            <h3>One small step at a time.</h3>
+            <p>Your explanation, quiz, or flashcards will appear here. Start with a topic you're working on today.</p>
+            <div class="tip"><span>✳</span><span><strong>Study tip</strong><br>Short, focused notes usually produce more useful results.</span></div>
+          </div>
+          <div id="loading-state" class="loading-state" hidden>
+            <div class="loader"></div>
+            <h3 id="loading-title">Making your notes easier...</h3>
+            <p>Gemma is working locally. This can take a little while on some computers.</p>
+          </div>
+          <div id="error-state" class="error-state" role="alert" hidden></div>
+          <article id="result-content" class="result-content" hidden></article>
+          <div id="result-footer" class="result-footer" hidden>
+            <span>✦ Made for learning, not just memorising.</span>
+            <button id="copy-btn" class="text-button" type="button">Copy result</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="bottom-note">
+        <span class="bottom-icon">♡</span>
+        <p><strong>Built for a friend.</strong> StudySaathi is a small reminder that learning gets easier when you have a little help.</p>
+      </section>
+    </main>
+
+    <footer><span>StudySaathi</span><span>Open-weight AI · Local-first learning</span></footer>
+  </div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
